@@ -1,0 +1,9 @@
+google-genai
+google-antigravity
+google-cloud-firestore
+google-cloud-bigquery
+fastapi
+uvicorn
+pydantic
+streamlit
+requests
