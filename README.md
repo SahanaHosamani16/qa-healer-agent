@@ -2,30 +2,8 @@
 Self-Healing QA Agent Service
 An automated test-healing backend built with FastAPI, Google Cloud Run, Gemini AI, Firestore, and BigQuery. The service intercepts broken test execution payloads, diagnoses failure causes using Generative AI, generates healed CSS/Xpath selectors dynamically, and logs test health telemetry for analytics.
 Architecture Overview
-                        +---------------------------+
-                        |  Test Runner / Framework  |
-                        +-------------+-------------+
-                                      |
-                                      | POST /heal
-                                      v
-                        +-------------+-------------+
-                        |   Google Cloud Run        |
-                        |   (FastAPI Backend)       |
-                        +------+-------------+------+
-                               |             |
-            +------------------+             +------------------+
-            |                                                   |
-            v                                                   v
-+-----------+-----------+                           +-----------+-----------+
-|   Gemini 3.6 Flash    |                           |  Google Firestore Client  |
-|  (Diagnosis & Healer) |                           |  (locator-maps Cache)     |
-+-----------------------+                           +-----------+---------------+
-                                                                |
-                                                                v
-                                                    +-----------+---------------+
-                                                    |    Google BigQuery        |
-                                                    |   (Telemetry & Logs)      |
-                                                    +---------------------------+
+                       <img width="435" height="334" alt="image" src="https://github.com/user-attachments/assets/772f9db7-0f0b-4049-b7f5-5f3baf8abe80" />
+
 Architecture Components
 API Engine (FastAPI on Cloud Run): Hosts the high-performance async /heal REST endpoint deployed as a containerized, serverless instance.
 
