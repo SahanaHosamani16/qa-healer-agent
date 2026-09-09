@@ -40,16 +40,3 @@ Response BodyJSON{
   },
   "healed_selector": "[data-testid=\"checkout-btn\"]"
 }
-Variable	Description	Example / DefaultGEMINI_API_KEY	Google Gemini API Key	AIzaSy...
-GCP_PROJECT	Google Cloud Project ID	ABC-lang-DEF-0914005407
-FIRESTORE_DATABASE	Firestore Database Identifier	locator
-  --source . \
-  --region us-central1 \
-  --allow-unauthenticated \
-  --set-secrets GEMINI_API_KEY=GEMINI_API_KEY:latest \
-  --set-env-vars FIRESTORE_DATABASE=locator
-2. Deploy Streamlit Web UI to Cloud RunBashgcloud run deploy qa-agent-ui \
-  --source . \
-  --dockerfile Dockerfile.ui \
-  --region us-central1 \
-  --allow-unauthenticated
