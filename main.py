@@ -1,15 +1,17 @@
 import json
 import os
+from datetime import datetime
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from google.cloud import firestore, bigquery
-from datetime import datetime
 from agents.diagnosis import diagnose_failure
 from agents.healer import suggest_healed_selector
 
 app = FastAPI(title="Self-Healing QA Agent Service")
 
-db = firestore.Client()
+# Fix: Custom database IDs must be 'locator', not '(locator)'
+DATABASE_ID = os.getenv("FIRESTORE_DATABASE", "locator")
+db = firestore.Client(database=DATABASE_ID)
 bq_client = bigquery.Client()
 
 class FailurePayload(BaseModel):
@@ -37,7 +39,7 @@ async def heal_test(payload: FailurePayload):
         status = "HEALED"
         
         # Update Firestore locator mapping cache
-        db.collection("locator_maps").document(payload.test_id).set({
+        db.collection("locator-maps").document(payload.test_id).set({
             "original_selector": payload.failed_selector,
             "active_selector": healed_selector,
             "updated_at": firestore.SERVER_TIMESTAMP
